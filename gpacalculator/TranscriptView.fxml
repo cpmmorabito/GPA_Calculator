@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gpacalculator.TranscriptViewControl">
+   <children>
+      <TableView fx:id="modelTable" prefHeight="321.0" prefWidth="600.0" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="modelColumnID" prefWidth="144.0" text="Course #" />
+          <TableColumn fx:id="modelColumnName" prefWidth="193.0" text="Course Name" />
+            <TableColumn fx:id="modelColumnCredit" prefWidth="135.0" text="Credit" />
+            <TableColumn fx:id="modelColumnGrade" prefWidth="127.0" text="Grade" />
+        </columns>
+      </TableView>
+      <ButtonBar layoutX="1.0" layoutY="333.0" prefHeight="53.0" prefWidth="579.0">
+         <buttons>
+            <Button fx:id="courseButton" mnemonicParsing="false" prefHeight="53.0" prefWidth="233.0" text="View Course" />
+            <Button fx:id="gpaButton" mnemonicParsing="false" prefHeight="53.0" prefWidth="96.0" text="View GPA" />
+            <Button fx:id="studentButton" mnemonicParsing="false" prefHeight="53.0" prefWidth="96.0" text="View Student" />
+         </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>

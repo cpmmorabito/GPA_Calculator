@@ -1,4 +1,4 @@
-package example;
+package gpacalculator;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package example;
+package gpacalculator;
 
 public class Minor {
     String name;
