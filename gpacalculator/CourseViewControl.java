@@ -39,6 +39,6 @@ public class CourseViewControl {
         assert professorField != null : "fx:id=\"professorField\" was not injected: check your FXML file 'CourseView.fxml'.";
         assert creditField != null : "fx:id=\"creditField\" was not injected: check your FXML file 'CourseView.fxml'.";
         assert gradeField != null : "fx:id=\"gradeField\" was not injected: check your FXML file 'CourseView.fxml'.";
-
+        //need to fix this so it takes in a course model as a parameter
     }
 }

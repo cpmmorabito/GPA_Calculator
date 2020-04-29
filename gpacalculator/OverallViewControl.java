@@ -6,6 +6,7 @@ package gpacalculator;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -31,6 +32,31 @@ public class OverallViewControl {
 
     @FXML // fx:id="semesterButton"
     private Button semesterButton; // Value injected by FXMLLoader
+
+    @FXML
+    void displayGPAAction(ActionEvent event) {
+        //opens gpa window
+    }
+
+    @FXML
+    void displayPrintoutAction(ActionEvent event) {
+        //opens printout window
+    }
+
+    @FXML
+    void displaySemesterAction(ActionEvent event) {
+        //opens semester window
+    }
+
+    @FXML
+    void displayStudentAction(ActionEvent event) {
+        //opens student info window
+    }
+
+    @FXML
+    void displayTranscriptAction(ActionEvent event) {
+        //opens transcript window
+    }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {

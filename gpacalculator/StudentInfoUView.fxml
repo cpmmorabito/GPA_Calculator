@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="456.0" prefWidth="495.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gpacalculator.StudentInfoUViewControl">
+   <children>
+      <Text layoutX="112.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Info" textAlignment="CENTER" wrappingWidth="270.13671875">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Text>
+      <VBox layoutX="63.0" layoutY="109.0" prefHeight="303.0" prefWidth="393.0" spacing="42.0">
+         <children>
+            <HBox>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" wrappingWidth="172.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="nameField" prefHeight="25.0" prefWidth="227.0" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Year:" wrappingWidth="172.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="yearField" prefHeight="25.0" prefWidth="224.0" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Major:" wrappingWidth="172.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="majorField" prefHeight="25.0" prefWidth="227.0" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Minor (if applicable):" wrappingWidth="172.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="minorField" prefHeight="25.0" prefWidth="227.0" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="In good standing:" wrappingWidth="172.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="inGoodStandingField" prefHeight="25.0" prefWidth="227.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Button fx:id="closeButton" layoutX="222.0" layoutY="420.0" mnemonicParsing="false" onAction="#closeAction" text="Close" />
+      <Text layoutX="160.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(Undergraduate)">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

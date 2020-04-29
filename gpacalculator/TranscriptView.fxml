@@ -5,10 +5,12 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gpacalculator.TranscriptViewControl">
    <children>
-      <TableView fx:id="modelTable" prefHeight="321.0" prefWidth="600.0" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TableView fx:id="modelTable" layoutY="60.0" prefHeight="261.0" prefWidth="600.0" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
         <columns>
           <TableColumn fx:id="modelColumnID" prefWidth="144.0" text="Course #" />
           <TableColumn fx:id="modelColumnName" prefWidth="193.0" text="Course Name" />
@@ -18,10 +20,15 @@
       </TableView>
       <ButtonBar layoutX="1.0" layoutY="333.0" prefHeight="53.0" prefWidth="579.0">
          <buttons>
-            <Button fx:id="courseButton" mnemonicParsing="false" prefHeight="53.0" prefWidth="233.0" text="View Course" />
-            <Button fx:id="gpaButton" mnemonicParsing="false" prefHeight="53.0" prefWidth="96.0" text="View GPA" />
-            <Button fx:id="studentButton" mnemonicParsing="false" prefHeight="53.0" prefWidth="96.0" text="View Student" />
+            <Button fx:id="courseButton" mnemonicParsing="false" onAction="#displayCourseAction" prefHeight="53.0" prefWidth="233.0" text="View Course" />
+            <Button fx:id="gpaButton" mnemonicParsing="false" onAction="#displayGPAAction" prefHeight="53.0" prefWidth="96.0" text="View GPA" />
+            <Button fx:id="studentButton" mnemonicParsing="false" onAction="#displayStudentAction" prefHeight="53.0" prefWidth="96.0" text="View Student" />
          </buttons>
       </ButtonBar>
+      <Text layoutX="210.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transcript" wrappingWidth="161.0">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

@@ -6,9 +6,10 @@ package gpacalculator;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -44,11 +45,31 @@ public class SemesterViewControl {
     @FXML // fx:id="studentButton"
     private Button studentButton; // Value injected by FXMLLoader
 
-    @FXML // fx:id="semesterComboBox"
-    private ComboBox<?> semesterComboBox; // Value injected by FXMLLoader
-
     @FXML // fx:id="selectButton"
     private Button selectButton; // Value injected by FXMLLoader
+
+    @FXML // fx:id="semesterChoiceBox"
+    private ChoiceBox<?> semesterChoiceBox; // Value injected by FXMLLoader
+
+    @FXML
+    void displayCourseAction(ActionEvent event) {
+        //opens course window
+    }
+
+    @FXML
+    void displayGPAAction(ActionEvent event) {
+        //opens gpa window
+    }
+
+    @FXML
+    void displaySemesterAction(ActionEvent event) {
+        //updates view to display the selected semester
+    }
+
+    @FXML
+    void displayStudentAction(ActionEvent event) {
+        //opens student window
+    }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
@@ -60,8 +81,8 @@ public class SemesterViewControl {
         assert courseButton != null : "fx:id=\"courseButton\" was not injected: check your FXML file 'SemesterView.fxml'.";
         assert gpaButton != null : "fx:id=\"gpaButton\" was not injected: check your FXML file 'SemesterView.fxml'.";
         assert studentButton != null : "fx:id=\"studentButton\" was not injected: check your FXML file 'SemesterView.fxml'.";
-        assert semesterComboBox != null : "fx:id=\"semesterComboBox\" was not injected: check your FXML file 'SemesterView.fxml'.";
         assert selectButton != null : "fx:id=\"selectButton\" was not injected: check your FXML file 'SemesterView.fxml'.";
+        assert semesterChoiceBox != null : "fx:id=\"semesterChoiceBox\" was not injected: check your FXML file 'SemesterView.fxml'.";
 
     }
 }
