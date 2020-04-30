@@ -21,46 +21,33 @@ import javax.persistence.Table;
  * @author fkash
  */
 @Entity
-@Table(name = "Couse")
+@Table(name = "Course")
 @NamedQueries({
-    @NamedQuery(name = "Couse.findAll", query = "SELECT c FROM Couse c"),
-    @NamedQuery(name = "Couse.findByCouseId", query = "SELECT c FROM Couse c WHERE c.couseId = :couseId"),
-    @NamedQuery(name = "Couse.findByCredit", query = "SELECT c FROM Couse c WHERE c.credit = :credit"),
-    @NamedQuery(name = "Couse.findByCourseName", query = "SELECT c FROM Couse c WHERE c.courseName = :courseName")})
+    @NamedQuery(name = "Course.findAll", query = "SELECT c FROM Course c"),
+    @NamedQuery(name = "Course.findByCourseID", query = "SELECT c FROM Course c WHERE c.courseID = :courseID"),
+    @NamedQuery(name = "Course.findByCredit", query = "SELECT c FROM Course c WHERE c.credit = :credit"),
+    @NamedQuery(name = "Course.findByCourseName", query = "SELECT c FROM Course c WHERE c.courseName = :courseName")})
 public class Course implements Serializable {
 
+    
+    
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "couseId")
-    private Long courseId;
-    @Column(name = "credit")
-    private BigInteger credit;
+    @Column(name = "courseID")
+    private String courseID;
+    @Column(name = "professor")
+    private String professor;
     @Column(name = "courseName")
     private String courseName;
+    @Column(name = "credit")
+    private int credit;
+
 
     public Course() {
     }
 
-    public Course(Long couseId) {
-        this.courseId = couseId;
-    }
 
-    public Long getCouseId() {
-        return courseId;
-    }
-
-    public void setCouseId(Long couseId) {
-        this.courseId = couseId;
-    }
-
-    public BigInteger getCredit() {
-        return credit;
-    }
-
-    public void setCredit(BigInteger credit) {
-        this.credit = credit;
-    }
 
     public String getCourseName() {
         return courseName;
@@ -70,10 +57,39 @@ public class Course implements Serializable {
         this.courseName = courseName;
     }
 
+
+    public Course(String courseID) {
+        this.courseID = courseID;
+    }
+
+    public String getCourseID() {
+        return courseID;
+    }
+
+    public void setCourseID(String courseID) {
+        this.courseID = courseID;
+    }
+
+    public String getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(String professor) {
+        this.professor = professor;
+    }
+
+    public int getCredit() {
+        return credit;
+    }
+
+    public void setCredit(int credit) {
+        this.credit = credit;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (courseId != null ? courseId.hashCode() : 0);
+        hash += (courseID != null ? courseID.hashCode() : 0);
         return hash;
     }
 
@@ -84,7 +100,7 @@ public class Course implements Serializable {
             return false;
         }
         Course other = (Course) object;
-        if ((this.courseId == null && other.courseId != null) || (this.courseId != null && !this.courseId.equals(other.courseId))) {
+        if ((this.courseID == null && other.courseID != null) || (this.courseID != null && !this.courseID.equals(other.courseID))) {
             return false;
         }
         return true;
@@ -92,7 +108,8 @@ public class Course implements Serializable {
 
     @Override
     public String toString() {
-        return "example.Course[ couseId=" + courseId + " ]";
+        return "gpacalculator.Course[ courseID=" + courseID + " ]";
     }
+
     
 }

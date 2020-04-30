@@ -5,17 +5,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gpacalculator.OverallViewControl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gpacalculator.OverallViewControl">
    <children>
-      <Text layoutX="165.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome!" textAlignment="CENTER" wrappingWidth="270.13671875">
+      <Text layoutX="27.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome!" textAlignment="CENTER" wrappingWidth="270.13671875">
          <font>
             <Font size="48.0" />
          </font>
       </Text>
-      <Button fx:id="gpaButton" layoutX="42.0" layoutY="126.0" mnemonicParsing="false" onAction="#displayGPAAction" prefHeight="74.0" prefWidth="123.0" text="View GPA" />
-      <Button fx:id="transcriptButton" layoutX="42.0" layoutY="274.0" mnemonicParsing="false" onAction="#displayTranscriptAction" prefHeight="74.0" prefWidth="123.0" text="View Courses" />
-      <Button fx:id="printoutButton" layoutX="239.0" layoutY="200.0" mnemonicParsing="false" onAction="#displayPrintoutAction" prefHeight="74.0" prefWidth="123.0" text="View Grades" />
-      <Button fx:id="studentInfoButton" layoutX="435.0" layoutY="120.0" mnemonicParsing="false" onAction="#displayStudentAction" prefHeight="74.0" prefWidth="123.0" text="View Student Info" />
-      <Button fx:id="semesterButton" layoutX="435.0" layoutY="274.0" mnemonicParsing="false" onAction="#displaySemesterAction" prefHeight="74.0" prefWidth="123.0" text="View Semester" />
+      <Button fx:id="gpaButton" layoutX="101.0" layoutY="110.0" mnemonicParsing="false" onAction="#displayGPAAction" prefHeight="74.0" prefWidth="123.0" text="View GPA" />
+      <Button fx:id="printoutButton" layoutX="101.0" layoutY="200.0" mnemonicParsing="false" onAction="#displayPrintoutAction" prefHeight="74.0" prefWidth="123.0" text="View Grades" />
+      <Button fx:id="studentInfoButton" layoutX="101.0" layoutY="292.0" mnemonicParsing="false" onAction="#displayStudentAction" prefHeight="74.0" prefWidth="123.0" text="View Student Info" />
    </children>
 </AnchorPane>

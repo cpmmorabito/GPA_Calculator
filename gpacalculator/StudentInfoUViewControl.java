@@ -10,6 +10,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 public class StudentInfoUViewControl {
 
@@ -22,34 +25,41 @@ public class StudentInfoUViewControl {
     @FXML // fx:id="nameField"
     private TextField nameField; // Value injected by FXMLLoader
 
-    @FXML // fx:id="yearField"
-    private TextField yearField; // Value injected by FXMLLoader
-
     @FXML // fx:id="majorField"
     private TextField majorField; // Value injected by FXMLLoader
 
-    @FXML // fx:id="minorField"
-    private TextField minorField; // Value injected by FXMLLoader
-
-    @FXML // fx:id="inGoodStandingField"
-    private TextField inGoodStandingField; // Value injected by FXMLLoader
+    @FXML // fx:id="studentIDField"
+    private TextField studentIDField; // Value injected by FXMLLoader
 
     @FXML // fx:id="closeButton"
     private Button closeButton; // Value injected by FXMLLoader
 
+    EntityManager manager;
+    
     @FXML
     void closeAction(ActionEvent event) {
-        //closes window
-    }
 
+    }
+    
+    public void loadData(int stuID) {
+        Query query = manager.createNamedQuery("Student.findByStudentId");
+        query.setParameter("studentId", stuID); //first is variable name second is the actual value being searched
+        Student data = (Student) query.getSingleResult();
+        nameField.setText(data.getStudentName());
+        majorField.setText(data.getMajor());
+        studentIDField.setText(Integer.toString(data.getStudentId()));
+
+    }
     @FXML // This method is called by the FXMLLoader when initialization is complete
-    void initialize() {
+    void initialize(int stuID) {
         assert nameField != null : "fx:id=\"nameField\" was not injected: check your FXML file 'StudentInfoUView.fxml'.";
-        assert yearField != null : "fx:id=\"yearField\" was not injected: check your FXML file 'StudentInfoUView.fxml'.";
         assert majorField != null : "fx:id=\"majorField\" was not injected: check your FXML file 'StudentInfoUView.fxml'.";
-        assert minorField != null : "fx:id=\"minorField\" was not injected: check your FXML file 'StudentInfoUView.fxml'.";
-        assert inGoodStandingField != null : "fx:id=\"inGoodStandingField\" was not injected: check your FXML file 'StudentInfoUView.fxml'.";
+        assert studentIDField != null : "fx:id=\"studentIDField\" was not injected: check your FXML file 'StudentInfoUView.fxml'.";
         assert closeButton != null : "fx:id=\"closeButton\" was not injected: check your FXML file 'StudentInfoUView.fxml'.";
 
+        manager = (EntityManager) Persistence.createEntityManagerFactory("IST311ProjectD3").createEntityManager();
+
+        //loading data
+        loadData(stuID);    
     }
 }

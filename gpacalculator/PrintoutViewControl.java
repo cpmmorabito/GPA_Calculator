@@ -4,11 +4,16 @@
 
 package gpacalculator;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 public class PrintoutViewControl {
 
@@ -18,44 +23,58 @@ public class PrintoutViewControl {
     @FXML // URL location of the FXML file that was given to the FXMLLoader
     private URL location;
 
-    @FXML // fx:id="gpaButton"
-    private Button gpaButton; // Value injected by FXMLLoader
+    @FXML // fx:id="semesterButton"
+    private Button semesterButton; // Value injected by FXMLLoader
 
-    @FXML // fx:id="printReportButton"
-    private Button printReportButton; // Value injected by FXMLLoader
-
-    @FXML // fx:id="studentInfoButton"
-    private Button studentInfoButton; // Value injected by FXMLLoader
-
-    @FXML // fx:id="printTranscriptButton"
-    private Button printTranscriptButton; // Value injected by FXMLLoader
+    @FXML // fx:id="transcriptButton"
+    private Button transcriptButton; // Value injected by FXMLLoader
 
     @FXML
-    void displayGPAAction(ActionEvent event) {
-        //opens gpa window
+    void displaySemesterAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("SemesterView.fxml"));
+            Parent secondRoot = loader.load();
+
+            // getting the controller from FXLoader
+            SemesterViewControl secondController =  loader.getController();
+            //secondController.displayMessage(messageInput.getText());
+
+            // Show Second FXML in new a window
+            Stage stage = new Stage();
+            stage.setScene(new Scene(secondRoot));
+            stage.setTitle("Second Window");
+            stage.show();
+        }
+        catch (IOException ex) {
+            System.err.println(ex);
+        }
     }
 
     @FXML
-    void displayStudentAction(ActionEvent event) {
-        //opens student window
-    }
+    void displayTranscriptAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("TranscriptView.fxml"));
+            Parent secondRoot = loader.load();
 
-    @FXML
-    void printReportAction(ActionEvent event) {
-        //prints the report card formatting, need to figure this out
-    }
+            // getting the controller from FXLoader
+            TranscriptViewControl secondController =  loader.getController();
+            //secondController.displayMessage(messageInput.getText());
 
-    @FXML
-    void printTranscriptAction(ActionEvent event) {
-        //prints the transcript formatting, need to figure this out
+            // Show Second FXML in new a window
+            Stage stage = new Stage();
+            stage.setScene(new Scene(secondRoot));
+            stage.setTitle("Second Window");
+            stage.show();
+        }
+        catch (IOException ex) {
+            System.err.println(ex);
+        }
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        assert gpaButton != null : "fx:id=\"gpaButton\" was not injected: check your FXML file 'PrintoutView.fxml'.";
-        assert printReportButton != null : "fx:id=\"printReportButton\" was not injected: check your FXML file 'PrintoutView.fxml'.";
-        assert studentInfoButton != null : "fx:id=\"studentInfoButton\" was not injected: check your FXML file 'PrintoutView.fxml'.";
-        assert printTranscriptButton != null : "fx:id=\"printTranscriptButton\" was not injected: check your FXML file 'PrintoutView.fxml'.";
+        assert semesterButton != null : "fx:id=\"semesterButton\" was not injected: check your FXML file 'PrintoutView.fxml'.";
+        assert transcriptButton != null : "fx:id=\"transcriptButton\" was not injected: check your FXML file 'PrintoutView.fxml'.";
 
     }
 }

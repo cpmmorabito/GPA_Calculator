@@ -6,6 +6,7 @@ package gpacalculator;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,7 +25,7 @@ public class GPAViewControl {
     private TextField overallGPAField; // Value injected by FXMLLoader
 
     @FXML // fx:id="semesterChoiceBox"
-    private ChoiceBox<?> semesterChoiceBox; // Value injected by FXMLLoader
+    private ChoiceBox<Integer> semesterChoiceBox; // Value injected by FXMLLoader
 
     @FXML // fx:id="semesterGPAField"
     private TextField semesterGPAField; // Value injected by FXMLLoader
@@ -34,6 +35,8 @@ public class GPAViewControl {
 
     @FXML
     void displaySemesterGPAAction(ActionEvent event) {
+        int semester = semesterChoiceBox.getSelectionModel().getSelectedItem();
+        semesterGPAField.setText(Integer.toString(semester));//this line should be removed once it actually works, just makes sure the things are speaking to each other
         //needs to pull whatever is currently selected in choicebox and then display it in the semester gpa field
     }
 
@@ -44,6 +47,8 @@ public class GPAViewControl {
         assert semesterGPAField != null : "fx:id=\"semesterGPAField\" was not injected: check your FXML file 'GPAView.fxml'.";
         assert semesterButton != null : "fx:id=\"semesterButton\" was not injected: check your FXML file 'GPAView.fxml'.";
         
+        
+        semesterChoiceBox.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
         //should automatically display the overall gpa when opened
     }
 }
