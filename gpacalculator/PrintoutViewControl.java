@@ -15,6 +15,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+/**
+* This class is responsible for PrintoutView
+* It connects to SemesterView and TranscriptView
+* It contains no functionality for any entity
+* It does not use any database table
+**/
+
 public class PrintoutViewControl {
 
     @FXML // ResourceBundle that was given to the FXMLLoader
@@ -31,6 +38,7 @@ public class PrintoutViewControl {
     
     private int studentID;
 
+    // Opens SemesterView
     @FXML
     void displaySemesterAction(ActionEvent event) {
         try {
@@ -52,6 +60,7 @@ public class PrintoutViewControl {
         }
     }
 
+    // Opens TranscriptView
     @FXML
     void displayTranscriptAction(ActionEvent event) {
         try {
@@ -73,6 +82,7 @@ public class PrintoutViewControl {
         }
     }
 
+    // Initializes controller
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize(int stuID) {
         assert semesterButton != null : "fx:id=\"semesterButton\" was not injected: check your FXML file 'PrintoutView.fxml'.";

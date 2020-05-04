@@ -16,6 +16,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.SelectionMode;
@@ -27,6 +29,13 @@ import javafx.stage.Stage;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+
+/**
+* This class is responsible for TranscriptView
+* It connects to NewCourseView and EnrollmentView and CouresView
+* It contains create functionality for Enrollment entity
+* It uses the Enrollment and Course database table
+**/
 
 public class TranscriptViewControl {
 
@@ -70,10 +79,14 @@ public class TranscriptViewControl {
     private Button addToTranscriptButton; // Value injected by FXMLLoader
 
     private int studentID;
+    Alert nAlert = new Alert(AlertType.CONFIRMATION);
+    Alert cAlert = new Alert(AlertType.CONFIRMATION);
+    Alert eAlert = new Alert(AlertType.CONFIRMATION);
     EntityManager manager;
     
+    // opens New course view
     @FXML
-    void addCourseAction(ActionEvent event) throws IOException{
+    void addCourseAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("NewCourseView.fxml"));
 
         // load the ui elements
@@ -83,6 +96,7 @@ public class TranscriptViewControl {
 
         //access the controller and call a method
         NewCourseViewControl controller = loader.getController();
+        controller.initialize(studentID);
 
         controller.setPreviousScene(((Node) event.getSource()).getScene());
 
@@ -92,33 +106,52 @@ public class TranscriptViewControl {
         window.show();
     }
 
+    // adds enrollment to selected semester
     @FXML
     void addEnrollmentAction(ActionEvent event) {
-        try{
-            long id = getNextID();
-            int stuID = studentID;
-            String cID = courseIDChoiceBox.getValue();
-            int sID = semesterChoiceBox.getValue();
+        try {
+            // makes sure there is actual data in the fields
+            if (courseIDChoiceBox.getValue() != null && gradeTextField.getText() != null && semesterChoiceBox.getValue() != null) {
+                long id = getNextID();
+                int stuID = studentID;
+                String cID = courseIDChoiceBox.getValue();
+                int sID = semesterChoiceBox.getValue();
 
-            Enrollment model = new Enrollment();
-            model.setId(id);
-            model.setCourseID(cID);
-            model.setSemesterID(sID);
-            model.setStudentID(stuID);
+                // creates new enrollment model
+                Enrollment model = new Enrollment();
+                model.setId(id);
+                model.setCourseID(cID);
+                model.setSemesterID(sID);
+                model.setStudentID(stuID);
 
-            model.setGrade(Float.parseFloat(gradeTextField.getText()));
-            // add model to tableview
-            if(!alreadyExists(model)){
-                 modelTable.getItems().add(model);
+                model.setGrade(Float.parseFloat(gradeTextField.getText()));
+                // add model to tableview
+                if (!alreadyExists(model)) {
+                     modelTable.getItems().add(model);
 
-            // add model to database
-                create(model);
+                // add model to database
+                    create(model);
+                } else {
+                    // Tells user Enrollment already exists
+                    nAlert.setTitle("Error Dialog");
+                    nAlert.setHeaderText("New Enrollment Creation Failed");
+                    nAlert.setContentText("Enrollment already exists");
+                    nAlert.showAndWait();
+                }
+            } else {
+                // Tells user the enrollment creation failed
+                nAlert.setTitle("Error Dialog");
+                nAlert.setHeaderText("New Enrollment Creation Failed");
+                nAlert.setContentText("Please check that all fields are selected and filled in and try again.");
+                nAlert.showAndWait();
             }
-        } catch (NumberFormatException | NullPointerException ex){
+            
+        } catch (NumberFormatException | NullPointerException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
+    // Opens course view with selected course
     @FXML
     void displayCourseAction(ActionEvent event) {
         try {
@@ -128,7 +161,6 @@ public class TranscriptViewControl {
 
             // getting the controller from FXLoader
             CourseViewControl controller =  loader.getController();
-            //secondController.displayMessage(messageInput.getText());
             controller.initialize(modelTable.getSelectionModel().getSelectedItem().getCourseID(), studentID);
             // Show Second FXML in new a window
             controller.setPreviousScene(((Node) event.getSource()).getScene());
@@ -137,23 +169,26 @@ public class TranscriptViewControl {
 
             window.setScene(courseViewScene);
             window.show();
-        }
-        catch (IOException | NullPointerException ex) {
+        } catch (IOException | NullPointerException ex) {
+            // tells user to select a course to view
             System.err.println(ex);
+            cAlert.setTitle("Error Dialog");
+            cAlert.setHeaderText("View Course Failed");
+            cAlert.setContentText("Please select a item from the table and try again.");
+            cAlert.showAndWait();
         }
     }
 
+    // Opens enrollment view with selected enrollment function
     @FXML
     void displayEnrollmentAction(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("EnrollmentView.fxml"));
-            Parent enrollmentView = loader.load();
-            Scene enrollmentViewScene = new Scene(enrollmentView);
+            Parent enrollView = loader.load();
+            Scene enrollmentViewScene = new Scene(enrollView);
 
             // getting the controller from FXLoader
             EnrollmentViewControl controller =  loader.getController();
-            //secondController.displayMessage(messageInput.getText());
-            
             // Show Second FXML in new a window
             controller.setPreviousScene(((Node) event.getSource()).getScene());
             controller.initialize(modelTable.getSelectionModel().getSelectedItem());
@@ -162,12 +197,17 @@ public class TranscriptViewControl {
 
             window.setScene(enrollmentViewScene);
             window.show();
-        }
-        catch (IOException | NullPointerException ex) {
+        } catch (IOException | NullPointerException ex) {
+            // tells uset to select an enrollment from the table
             System.err.println(ex);
+            eAlert.setTitle("Error Dialog");
+            eAlert.setHeaderText("View Enrollment Failed");
+            eAlert.setContentText("Please select a item from the table and try again.");
+            eAlert.showAndWait();
         }
     }
-
+    
+    // gets unique id for new enrollment entity
     public long getNextID(){
         Query query = manager.createNamedQuery("Enrollment.findAll");
         List<Enrollment> data = query.getResultList();
@@ -179,19 +219,7 @@ public class TranscriptViewControl {
         return id;
     }
     
-    public void create(Enrollment model) {
-        try {
-            manager.getTransaction().begin();
-            if (model.getId() != null) {
-                // create model
-                manager.persist(model);
-                manager.getTransaction().commit();
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-    
+    // checks to see if the enrollment entity already exists
     public boolean alreadyExists(Enrollment eCheck){
         Query query = manager.createNamedQuery("Enrollment.findAll");
         List<Enrollment> data = query.getResultList();
@@ -208,7 +236,22 @@ public class TranscriptViewControl {
 
         return false;
     }
+
+    // creates Enrollment entity in database
+    public void create(Enrollment model) {
+        try {
+            manager.getTransaction().begin();
+            if (model.getId() != null) {
+                // create model
+                manager.persist(model);
+                manager.getTransaction().commit();
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
     
+    // Loads data for the selected student and fills table
     public void loadData() {
         Query query = manager.createNamedQuery("Enrollment.findByStudentID");
         query.setParameter("studentID", studentID); 
@@ -222,6 +265,7 @@ public class TranscriptViewControl {
         modelTable.setItems(odata);
     }
     
+    // Initializes controller
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize(int stuID) {
         assert modelTable != null : "fx:id=\"modelTable\" was not injected: check your FXML file 'TranscriptView.fxml'.";
@@ -241,11 +285,10 @@ public class TranscriptViewControl {
         modelTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         
         //set up the columns in the table
-        modelColumnID.setCellValueFactory(new PropertyValueFactory<>("CourseID")); //should match with attribute Id (e.g., getId/setId methods) in SimpleModel
-        modelColumnSemester.setCellValueFactory(new PropertyValueFactory<>("SemesterID")); //should match with attribute Value (e.g., getValue/setValue methods) in SimpleModel
+        modelColumnID.setCellValueFactory(new PropertyValueFactory<>("CourseID")); 
+        modelColumnSemester.setCellValueFactory(new PropertyValueFactory<>("SemesterID")); 
         modelColumnGrade.setCellValueFactory(new PropertyValueFactory<>("Grade"));
         // loading data from database
-        //database reference: "IST311ProjectPU"
         manager = (EntityManager) Persistence.createEntityManagerFactory("IST311ProjectD3").createEntityManager();
         
         Query query = manager.createNamedQuery("Course.findAll");

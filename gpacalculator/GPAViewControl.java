@@ -13,6 +13,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
+/**
+* This class is responsible for GPAView
+* It connects to no other views
+* It displays GPA details
+* It does not use any database table
+**/
+
 public class GPAViewControl {
 
     @FXML // ResourceBundle that was given to the FXMLLoader
@@ -36,24 +43,38 @@ public class GPAViewControl {
     private GPA gpa = new GPA();
     private int studentID;
     
-    void displayOverallGPA() {
-        gpa.calcOverallGPA(studentID);
-        if(Double.isNaN(gpa.getOverallGPA())){
-            gpa.setOverallGPA(0.0);
-        }
-        overallGPAField.setText(String.format("%.2f", gpa.getOverallGPA()));
-    }
-    
+    // Displays selected semester gpa
     @FXML
     void displaySemesterGPAAction(ActionEvent event) {
-        int semester = semesterChoiceBox.getSelectionModel().getSelectedItem();
-        gpa.calcSemesterGPA(semester, studentID);        
-        if(Double.isNaN(gpa.getSemesterGPA())){
-            gpa.setSemesterGPA(0.0);
+        try {
+            // Gets selected semsester
+            int semester = semesterChoiceBox.getSelectionModel().getSelectedItem();
+            // calculates gpa
+            gpa.calcSemesterGPA(semester, studentID); 
+            // formats gpa if it has no data
+            if (Double.isNaN(gpa.getSemesterGPA())) {
+                gpa.setSemesterGPA(0.0);
+            }
+            // displays gpa
+            semesterGPAField.setText(String.format("%.2f", gpa.getSemesterGPA()));
+        } catch (NullPointerException ex) {
+            System.out.println(ex.getMessage());
         }
-        semesterGPAField.setText(String.format("%.2f", gpa.getSemesterGPA()));
     }
 
+    // Displays overall gpa
+    void displayOverallGPA() {
+        // calculates gpa
+        gpa.calcOverallGPA(studentID);
+        // formats gpa if it has no data
+        if (Double.isNaN(gpa.getOverallGPA())) {
+            gpa.setOverallGPA(0.0);
+        }
+        // displays gpa
+        overallGPAField.setText(String.format("%.2f", gpa.getOverallGPA()));
+    }
+
+    // Initializes controller
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize(int stuID) {
         assert overallGPAField != null : "fx:id=\"overallGPAField\" was not injected: check your FXML file 'GPAView.fxml'.";

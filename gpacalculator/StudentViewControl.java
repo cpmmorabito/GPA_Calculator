@@ -1,5 +1,5 @@
 /**
- * Sample Skeleton for 'StudentInfoUView.fxml' Controller Class
+ * Sample Skeleton for 'StudentView.fxml' Controller Class
  */
 
 package gpacalculator;
@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -25,7 +23,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-public class StudentInfoUViewControl {
+/**
+* This class is responsible for StudentView
+* It connects to no other views
+* It contains update and delete functionality for Student entity
+* It uses the Student and Enrollment database tables
+**/
+
+public class StudentViewControl {
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -44,6 +49,9 @@ public class StudentInfoUViewControl {
 
     @FXML // fx:id="detailIDField"
     private TextField detailIDField; // Value injected by FXMLLoader
+    
+    @FXML // fx:id="updateTab"
+    private Tab updateTab; // Value injected by FXMLLoader
 
     @FXML // fx:id="updateNameField"
     private TextField updateNameField; // Value injected by FXMLLoader
@@ -74,58 +82,74 @@ public class StudentInfoUViewControl {
 
     private int studentID;
     private Student sInfo = new Student();
+    Alert dAlert = new Alert(AlertType.CONFIRMATION);
+    Alert uAlert = new Alert(AlertType.CONFIRMATION);
     EntityManager manager;
     
+    // deletes student from the program
     @FXML
     void deleteStudentAction(ActionEvent event) {
         // delete confirmation dialog
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Delete this student?");
-        alert.setContentText("Are you sure you want to delete " + sInfo.getStudentName() + "?");
-
-        Optional<ButtonType> result = alert.showAndWait();
+        dAlert.setTitle("Confirmation Dialog");
+        dAlert.setHeaderText("Delete this student?");
+        dAlert.setContentText("Are you sure you want to delete " + sInfo.getStudentName() + "?");
+        Optional<ButtonType> result = dAlert.showAndWait();
         if (result.get() == ButtonType.OK) {
+                // deletes from database
                 delete();  
-                alert.setHeaderText("Deletion Complete");
-                alert.setContentText("Program will now exit.");
-                alert.showAndWait();
+                // Tells user deletion was successful
+                dAlert.setHeaderText("Deletion Complete");
+                dAlert.setContentText("Program will now exit.");
+                dAlert.showAndWait();
         }
+        // exits program
         Platform.exit();
     }
 
     @FXML
     void tabDeleteChanged(Event event) {
-        deleteNameField.setText(sInfo.getStudentName());
-        deleteMajorField.setText(sInfo.getMajor());
-        deleteIDField.setText(Integer.toString(studentID));
+        // Has no elements that require updating when the tabs are changed
     }
 
     @FXML
     void tabDetailChanged(Event event) {
-        detailNameField.setText(sInfo.getStudentName());
-        detailMajorField.setText(sInfo.getMajor());
-        detailIDField.setText(Integer.toString(studentID));
+        // Has no elements that require updating when the tabs are changed
     }
 
     @FXML
     void tabUpdateChanged(Event event) {
-        updateNameField.setText(sInfo.getStudentName());
-        updateMajorField.setText(sInfo.getMajor());
-        updateIDField.setText(Integer.toString(studentID));
+        // Has no elements that require updating when the tabs are changed
     }
 
+
+    // creates student model to update database with new values
     @FXML
     void updateStudentAction(ActionEvent event) {
+        // makes new student with same values
         Student nStu = new Student();
         nStu.setStudentId(studentID);
-        nStu.setMajor(updateMajorField.getText());
-        nStu.setStudentName(updateNameField.getText());
+        nStu.setMajor(sInfo.getMajor());
+        nStu.setStudentName(sInfo.getStudentName());
+
+        // fills new student with user input values if they are entered
+        if (updateMajorField.getText() != null) {
+            nStu.setMajor(updateMajorField.getText());
+        }
+        if (updateNameField.getText() != null) {
+            nStu.setStudentName(updateNameField.getText());
+        }
+        // updates database
         update(nStu);
+        // tells user the update was successful
+        uAlert.setHeaderText("Update Complete");
+        uAlert.setContentText("Window will now close.");
+        uAlert.showAndWait();
         Stage stage = (Stage) updateButton.getScene().getWindow();
+        // closes window
         stage.close();
     }
     
+    // updates student in database
     public void update(Student nStu) {
         try {
 
@@ -142,6 +166,7 @@ public class StudentInfoUViewControl {
         }
     }
 
+    // Deletes student from database and all instances of student in enrollment
     public void delete() {
         try {
             Student dbModel = manager.find(Student.class, sInfo.getStudentId());
@@ -166,6 +191,7 @@ public class StudentInfoUViewControl {
         }
     }
 
+    // Loads data and fills in all of the fields
     public void loadData() {
         Query query = manager.createNamedQuery("Student.findByStudentId");
         query.setParameter("studentId", studentID); //first is variable name second is the actual value being searched
@@ -176,15 +202,20 @@ public class StudentInfoUViewControl {
         detailNameField.setText(data.getStudentName());
         detailMajorField.setText(data.getMajor());
         detailIDField.setText(Integer.toString(data.getStudentId()));
-
+        updateIDField.setText(Integer.toString(data.getStudentId()));
+        deleteNameField.setText(data.getStudentName());
+        deleteMajorField.setText(data.getMajor());
+        deleteIDField.setText(Integer.toString(data.getStudentId()));
     }
     
+    // Initializes controller
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize(int stuID) {
         assert detailTab != null : "fx:id=\"detailTab\" was not injected: check your FXML file 'StudentInfoUView.fxml'.";
         assert detailNameField != null : "fx:id=\"detailNameField\" was not injected: check your FXML file 'StudentInfoUView.fxml'.";
         assert detailMajorField != null : "fx:id=\"detailMajorField\" was not injected: check your FXML file 'StudentInfoUView.fxml'.";
         assert detailIDField != null : "fx:id=\"detailIDField\" was not injected: check your FXML file 'StudentInfoUView.fxml'.";
+        assert updateTab != null : "fx:id=\"updateTab\" was not injected: check your FXML file 'StudentView.fxml'.";
         assert updateNameField != null : "fx:id=\"updateNameField\" was not injected: check your FXML file 'StudentInfoUView.fxml'.";
         assert updateMajorField != null : "fx:id=\"updateMajorField\" was not injected: check your FXML file 'StudentInfoUView.fxml'.";
         assert updateIDField != null : "fx:id=\"updateIDField\" was not injected: check your FXML file 'StudentInfoUView.fxml'.";

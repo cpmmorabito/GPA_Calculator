@@ -14,6 +14,7 @@ public class main extends Application{
     public static void main(String[] args) {
         launch(args);
     }
+    
     @Override 
     public void start(Stage stage) throws Exception {
         // loading from FXML
@@ -21,8 +22,5 @@ public class main extends Application{
         Scene scene = new Scene(root);
         stage.setScene(scene);    
         stage.show();
-      
-        
-        
     }
 }

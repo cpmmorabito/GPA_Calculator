@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
@@ -80,7 +81,7 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
-                                    <TextField fx:id="updateSemesterField" prefHeight="25.0" prefWidth="227.0" promptText="Enter new Semester" />
+                                    <ChoiceBox fx:id="semesterChoiceBox" prefHeight="25.0" prefWidth="229.0" />
                                  </children>
                               </HBox>
                               <HBox>
