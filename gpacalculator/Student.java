@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gpacalculator;
 
 import java.io.Serializable;
@@ -17,6 +12,10 @@ import javax.persistence.Table;
 /**
  *
  * @author User
+ * 
+ * Model class for Database table Student
+ * The class was entirely computer generated
+ * 
  */
 @Entity
 @Table(name = "Student")
@@ -25,6 +24,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "Student.findByStudentId", query = "SELECT s FROM Student s WHERE s.studentId = :studentId"),
     @NamedQuery(name = "Student.findByStudentName", query = "SELECT s FROM Student s WHERE s.studentName = :studentName"),
     @NamedQuery(name = "Student.findByMajor", query = "SELECT s FROM Student s WHERE s.major = :major")})
+
 public class Student implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,13 +37,16 @@ public class Student implements Serializable {
     @Column(name = "major")
     private String major;
 
+    // Constructors
     public Student() {
+        
     }
 
     public Student(Integer studentId) {
         this.studentId = studentId;
     }
 
+    // Setters and getters
     public Integer getStudentId() {
         return studentId;
     }
@@ -68,6 +71,8 @@ public class Student implements Serializable {
         this.major = major;
     }
 
+    
+    // Override methods
     @Override
     public int hashCode() {
         int hash = 0;

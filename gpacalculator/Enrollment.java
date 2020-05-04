@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gpacalculator;
 
 import java.io.Serializable;
@@ -17,6 +12,12 @@ import javax.persistence.Table;
 /**
  *
  * @author User
+ * 
+ * Model class for Database table Enrollment
+ * The call was entirely computer generated
+ * Except for NamedQuery "Enrollment.findByStudentIDandCourseID"
+ * and NamedQuery "Enrollment.findByStudentIDandSemesterID"
+ * 
  */
 @Entity
 @Table(name = "Enrollment")
@@ -29,6 +30,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "Enrollment.findByCourseID", query = "SELECT e FROM Enrollment e WHERE e.courseID = :courseID"),
     @NamedQuery(name = "Enrollment.findByGrade", query = "SELECT e FROM Enrollment e WHERE e.grade = :grade"),
     @NamedQuery(name = "Enrollment.findBySemesterID", query = "SELECT e FROM Enrollment e WHERE e.semesterID = :semesterID")})
+
 public class Enrollment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,9 +51,12 @@ public class Enrollment implements Serializable {
     @Column(name = "semesterID")
     private int semesterID;
 
+    // Constructor
     public Enrollment() {
+        
     }
 
+    // Setters and getters
     public Long getId() {
         return id;
     }
@@ -92,6 +97,7 @@ public class Enrollment implements Serializable {
         this.semesterID = semesterID;
     }
 
+    // Override methods
     @Override
     public int hashCode() {
         int hash = 0;
@@ -117,6 +123,4 @@ public class Enrollment implements Serializable {
         return "gpacalculator.Enrollment[ id=" + id + " ]";
     }
 
-    
-    
 }

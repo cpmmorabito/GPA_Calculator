@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gpacalculator;
 
 import java.util.List;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
@@ -15,18 +8,28 @@ import javax.persistence.Query;
 /**
  *
  * @author User
+ * 
+ * Model class for storing and calculating GPA for the given user
+ * This class instantiates when the program starts and recalculates
+ * the GPA every time the window is open so the user can see the 
+ * effects of grade changes on their GPA
+ * 
  */
+
 public class GPA {
-    double overallGPA;
-    double semesterGPA;
+    
+    private double overallGPA;
+    private double semesterGPA;
     EntityManager manager;
     
+    // Constructor that also creates EntityManager for the class
     public GPA() {
         this.overallGPA = 0.0;
         this.semesterGPA = 0.0;
         manager = (EntityManager) Persistence.createEntityManagerFactory("IST311ProjectD3").createEntityManager();
     }
     
+    // Setters and getters for overallGPA and semesterGPA
     public void setOverallGPA(double oG) {
         this.overallGPA = oG;
     }
@@ -43,6 +46,8 @@ public class GPA {
         return semesterGPA;
     }
     
+    // Method takes the float value from the database and converts it into it's
+    // grade point equivalent for calculation
     public double gradeToValue(float grade) {
         double qualityValue = 0;
 
@@ -75,63 +80,62 @@ public class GPA {
         return qualityValue;
     }
     
+    // Method calculates the GPA for the given semester and student
+    // Stores the result in variable semesterGPA
     public void calcSemesterGPA(int semester, int studentID) {
         double qualityPoints = 0.0;
         int credits = 0;
         
+        // Gets data from database for all of the classes the given student
+        // took during the given semester
         Query query = manager.createNamedQuery("Enrollment.findByStudentIDandSemesterID");
         query.setParameter("studentID", studentID); //first is variable name second is the actual value being searched
         query.setParameter("semesterID", semester);
         List<Enrollment> data = query.getResultList();
 
+        // Goes through list of Enrollment data and gets the course information
+        // for each entry
         for (Enrollment d : data) {
             Query query_course = manager.createNamedQuery("Course.findByCourseID");
             query_course.setParameter("courseID", d.getCourseID());
             Course c = (Course) query_course.getSingleResult();
+            
+            // Stores two variables for data calculation based on the courses
+            // pulled from the database
             qualityPoints += gradeToValue(d.getGrade()) * c.getCredit();
             credits += c.getCredit();
         }
         
-//        for (Enrollment e : grades) {
-//            if (e.getStudentID() == s.getStudentId()) {
-//                if (e.getSemesterID() == semester) {
-//                    for (Course c : course) {
-//                        if (c.getCourseID() == e.getCourseID()) {
-//                            qualityPoints += gradeToValue(e.getGrade()) * c.getCredit();
-//                            credits += c.getCredit();
-//                        }
-//                    }
-//                }
-//            }
-//        }
-        
+        // Calculates GPA and stores in it semesterGPA
         semesterGPA = qualityPoints / credits;
     }
     
+    // Method calculates the GPA for the given student over all semesters
+    // Stores the result in variable overallGPA
     public void calcOverallGPA(int stuID) {
         double totalQualityPoints = 0.0;
         int totalCredits = 0;
         
+        // Gets data from database for all of the classes the given student took
         Query query_main = manager.createNamedQuery("Enrollment.findByStudentID");
-        query_main.setParameter("studentID", stuID); //first is variable name second is the actual value being searched;
+        query_main.setParameter("studentID", stuID);
         List<Enrollment> data = query_main.getResultList();
 
+        // Goes through list of Enrollment data and gets the course information
+        // for each entry
         for (Enrollment d : data) {
             Query query_course = manager.createNamedQuery("Course.findByCourseID");
             query_course.setParameter("courseID", d.getCourseID());
             Course c = (Course) query_course.getSingleResult();
+            
+            // Stores two variables for data calculation based on the courses
+            // pulled from the database
             totalQualityPoints += gradeToValue(d.getGrade()) * c.getCredit();
             totalCredits += c.getCredit();
         }
-                
+        
+        // Calculates GPA and stores in it overallGPA        
         overallGPA = totalQualityPoints / totalCredits;
     }
     
-    public String overallToString() {
-        return "" + overallGPA;
-    }
-    
-    public String semesterToString() {
-        return "" + semesterGPA;
-    }
 }

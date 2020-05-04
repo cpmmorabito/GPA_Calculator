@@ -1,13 +1,6 @@
 package gpacalculator;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import java.io.Serializable;
-import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +12,12 @@ import javax.persistence.Table;
 /**
  *
  * @author fkash
+ * 
+ * Model class for Database table "Course"
+ * The class was entirely computer generated
+ * 
  */
+
 @Entity
 @Table(name = "Course")
 @NamedQueries({
@@ -27,10 +25,9 @@ import javax.persistence.Table;
     @NamedQuery(name = "Course.findByCourseID", query = "SELECT c FROM Course c WHERE c.courseID = :courseID"),
     @NamedQuery(name = "Course.findByCredit", query = "SELECT c FROM Course c WHERE c.credit = :credit"),
     @NamedQuery(name = "Course.findByCourseName", query = "SELECT c FROM Course c WHERE c.courseName = :courseName")})
+
 public class Course implements Serializable {
 
-    
-    
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -43,12 +40,12 @@ public class Course implements Serializable {
     @Column(name = "credit")
     private int credit;
 
-
+    // Constructor
     public Course() {
+        
     }
 
-
-
+    // Setters and getters
     public String getCourseName() {
         return courseName;
     }
@@ -56,7 +53,6 @@ public class Course implements Serializable {
     public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
-
 
     public Course(String courseID) {
         this.courseID = courseID;
@@ -86,6 +82,7 @@ public class Course implements Serializable {
         this.credit = credit;
     }
     
+    // Override methods
     @Override
     public int hashCode() {
         int hash = 0;
@@ -110,6 +107,5 @@ public class Course implements Serializable {
     public String toString() {
         return "gpacalculator.Course[ courseID=" + courseID + " ]";
     }
-
     
 }
