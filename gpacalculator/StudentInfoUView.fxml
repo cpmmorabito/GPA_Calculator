@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -8,47 +10,144 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="346.0" prefWidth="495.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gpacalculator.StudentInfoUViewControl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="346.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gpacalculator.StudentInfoUViewControl">
    <children>
-      <Text layoutX="112.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Info" textAlignment="CENTER" wrappingWidth="270.13671875">
-         <font>
-            <Font size="48.0" />
-         </font>
-      </Text>
-      <VBox layoutX="63.0" layoutY="98.0" prefHeight="187.0" prefWidth="393.0" spacing="42.0">
-         <children>
-            <HBox>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" wrappingWidth="172.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="nameField" prefHeight="25.0" prefWidth="227.0" />
-               </children>
-            </HBox>
-            <HBox>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Major:" wrappingWidth="172.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="majorField" prefHeight="25.0" prefWidth="227.0" />
-               </children>
-            </HBox>
-            <HBox>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Student ID:" wrappingWidth="172.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="studentIDField" prefHeight="25.0" prefWidth="227.0" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-      <Button fx:id="closeButton" layoutX="225.0" layoutY="285.0" mnemonicParsing="false" onAction="#closeAction" text="Close" />
+      <TabPane prefHeight="346.0" prefWidth="460.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="detailTab" onSelectionChanged="#tabDetailChanged" text="Student Details">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="95.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Info" textAlignment="CENTER" wrappingWidth="270.13671875">
+                           <font>
+                              <Font size="48.0" />
+                           </font>
+                        </Text>
+                        <VBox layoutX="34.0" layoutY="96.0" prefHeight="187.0" prefWidth="393.0" spacing="42.0">
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" wrappingWidth="172.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="detailNameField" editable="false" prefHeight="25.0" prefWidth="227.0" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Major:" wrappingWidth="172.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="detailMajorField" editable="false" prefHeight="25.0" prefWidth="227.0" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Student ID:" wrappingWidth="172.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="detailIDField" editable="false" prefHeight="25.0" prefWidth="227.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab onSelectionChanged="#tabUpdateChanged" text="Update Student">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutX="34.0" layoutY="53.0" prefHeight="187.0" prefWidth="393.0" spacing="42.0">
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" wrappingWidth="172.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="updateNameField" prefHeight="25.0" prefWidth="227.0" promptText="Enter new name e.g. &quot;John Smith&quot;" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Major:" wrappingWidth="172.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="updateMajorField" prefHeight="25.0" prefWidth="227.0" promptText="Enter new major e.g. &quot;English&quot;" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Student ID:" wrappingWidth="172.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="updateIDField" editable="false" prefHeight="25.0" prefWidth="227.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <Button fx:id="updateButton" layoutX="168.0" layoutY="259.0" mnemonicParsing="false" onAction="#updateStudentAction" text="Update Student Info" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab fx:id="deleteTab" onSelectionChanged="#tabDeleteChanged" text="Delete Student">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutX="34.0" layoutY="53.0" prefHeight="187.0" prefWidth="393.0" spacing="42.0">
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" wrappingWidth="172.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="deleteNameField" editable="false" prefHeight="25.0" prefWidth="227.0" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Major:" wrappingWidth="172.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="deleteMajorField" editable="false" prefHeight="25.0" prefWidth="227.0" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Student ID:" wrappingWidth="172.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="deleteIDField" prefHeight="25.0" prefWidth="227.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <Button fx:id="deleteButton" layoutX="183.0" layoutY="249.0" mnemonicParsing="false" onAction="#deleteStudentAction" text="Delete Student" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>

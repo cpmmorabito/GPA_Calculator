@@ -24,7 +24,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="courseNumField" prefHeight="25.0" prefWidth="227.0" />
+                  <TextField fx:id="courseNumField" prefHeight="25.0" prefWidth="227.0" promptText="Enter Course Number e.g. IST311" />
                </children>
             </HBox>
             <HBox>
@@ -34,7 +34,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="courseNameField" prefHeight="25.0" prefWidth="227.0" />
+                  <TextField fx:id="courseNameField" prefHeight="25.0" prefWidth="227.0" promptText="Enter Course Name e.g. Italian 1" />
                </children>
             </HBox>
             <HBox>
@@ -44,7 +44,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="professorField" prefHeight="25.0" prefWidth="227.0" />
+                  <TextField fx:id="professorField" prefHeight="25.0" prefWidth="227.0" promptText="Ender Professor Name e.g. Dooley" />
                </children>
             </HBox>
             <HBox>
@@ -54,7 +54,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="creditField" prefHeight="25.0" prefWidth="227.0" />
+                  <TextField fx:id="creditField" prefHeight="25.0" prefWidth="227.0" promptText="Enter Credits e.g. 3" />
                </children>
             </HBox>
             <HBox alignment="TOP_CENTER" spacing="50.0">

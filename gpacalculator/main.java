@@ -17,10 +17,12 @@ public class main extends Application{
     @Override 
     public void start(Stage stage) throws Exception {
         // loading from FXML
-      Parent root = FXMLLoader.load(getClass().getResource("OverallView.fxml")); 
-      Scene scene = new Scene(root);
-      stage.setScene(scene);    
-      stage.show();
+        Parent root = FXMLLoader.load(getClass().getResource("LoginView.fxml")); 
+        Scene scene = new Scene(root);
+        stage.setScene(scene);    
+        stage.show();
+      
+        
         
     }
 }

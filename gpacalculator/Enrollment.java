@@ -52,17 +52,6 @@ public class Enrollment implements Serializable {
     public Enrollment() {
     }
 
-    public Enrollment(Long id) {
-        this.id = id;
-    }
-
-    public Enrollment(Long id, int studentID, String courseID, int semesterID) {
-        this.id = id;
-        this.studentID = studentID;
-        this.courseID = courseID;
-        this.semesterID = semesterID;
-    }
-
     public Long getId() {
         return id;
     }

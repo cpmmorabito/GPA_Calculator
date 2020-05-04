@@ -26,12 +26,13 @@ public class OverallViewControl {
     @FXML // fx:id="gpaButton"
     private Button gpaButton; // Value injected by FXMLLoader
 
-
     @FXML // fx:id="printoutButton"
     private Button printoutButton; // Value injected by FXMLLoader
 
     @FXML // fx:id="studentInfoButton"
     private Button studentInfoButton; // Value injected by FXMLLoader
+    
+    private int studentID;
 
 
     @FXML
@@ -41,9 +42,9 @@ public class OverallViewControl {
             Parent secondRoot = loader.load();
 
             // getting the controller from FXLoader
-            GPAViewControl secondController =  loader.getController();
+            GPAViewControl gpaController =  loader.getController();
             //secondController.displayMessage(messageInput.getText());
-
+            gpaController.initialize(studentID);
             // Show Second FXML in new a window
             Stage stage = new Stage();
             stage.setScene(new Scene(secondRoot));
@@ -64,7 +65,7 @@ public class OverallViewControl {
             // getting the controller from FXLoader
             PrintoutViewControl secondController =  loader.getController();
             //secondController.displayMessage(messageInput.getText());
-
+            secondController.initialize(studentID);
             // Show Second FXML in new a window
             Stage stage = new Stage();
             stage.setScene(new Scene(secondRoot));
@@ -86,7 +87,7 @@ public class OverallViewControl {
             // getting the controller from FXLoader
             StudentInfoUViewControl secondController =  loader.getController();
             //secondController.displayMessage(messageInput.getText());
-            secondController.initialize(101);
+            secondController.initialize(studentID);
             // Show Second FXML in new a window
             Stage stage = new Stage();
             stage.setScene(new Scene(secondRoot));
@@ -100,10 +101,11 @@ public class OverallViewControl {
 
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
-    void initialize() {
+    void initialize(int stuID) {
         assert gpaButton != null : "fx:id=\"gpaButton\" was not injected: check your FXML file 'OverallView.fxml'.";
         assert printoutButton != null : "fx:id=\"printoutButton\" was not injected: check your FXML file 'OverallView.fxml'.";
         assert studentInfoButton != null : "fx:id=\"studentInfoButton\" was not injected: check your FXML file 'OverallView.fxml'.";
         
+        studentID = stuID;
     }
 }

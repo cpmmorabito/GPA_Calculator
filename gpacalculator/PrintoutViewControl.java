@@ -28,6 +28,8 @@ public class PrintoutViewControl {
 
     @FXML // fx:id="transcriptButton"
     private Button transcriptButton; // Value injected by FXMLLoader
+    
+    private int studentID;
 
     @FXML
     void displaySemesterAction(ActionEvent event) {
@@ -38,7 +40,7 @@ public class PrintoutViewControl {
             // getting the controller from FXLoader
             SemesterViewControl secondController =  loader.getController();
             //secondController.displayMessage(messageInput.getText());
-
+            secondController.initialize(studentID);
             // Show Second FXML in new a window
             Stage stage = new Stage();
             stage.setScene(new Scene(secondRoot));
@@ -59,7 +61,7 @@ public class PrintoutViewControl {
             // getting the controller from FXLoader
             TranscriptViewControl secondController =  loader.getController();
             //secondController.displayMessage(messageInput.getText());
-
+            secondController.initialize(studentID);
             // Show Second FXML in new a window
             Stage stage = new Stage();
             stage.setScene(new Scene(secondRoot));
@@ -72,9 +74,10 @@ public class PrintoutViewControl {
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
-    void initialize() {
+    void initialize(int stuID) {
         assert semesterButton != null : "fx:id=\"semesterButton\" was not injected: check your FXML file 'PrintoutView.fxml'.";
         assert transcriptButton != null : "fx:id=\"transcriptButton\" was not injected: check your FXML file 'PrintoutView.fxml'.";
-
+        
+        studentID = stuID;
     }
 }

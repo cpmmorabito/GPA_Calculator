@@ -72,7 +72,7 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <Button fx:id="backButton" layoutX="242.0" layoutY="332.0" mnemonicParsing="false" onAction="#showBackAction" text="Close" />
+                        <Button fx:id="backButton" layoutX="242.0" layoutY="332.0" mnemonicParsing="false" onAction="#showBackAction" text="Back" />
                      </children>
                   </AnchorPane>
             </content>

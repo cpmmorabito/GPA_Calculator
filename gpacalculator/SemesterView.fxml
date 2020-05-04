@@ -33,7 +33,7 @@
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select Course ID" />
             <ChoiceBox fx:id="courseIDChoiceBox" prefWidth="150.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Grade (as percentage)" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Grade (as decimal)" />
             <TextField fx:id="gradeTextField" promptText="e.g. 98.2 or 75.0" />
             <Button fx:id="addToSemesterButton" mnemonicParsing="false" onAction="#addEnrollmentAction" text="Add to Semester" />
          </children>

@@ -89,7 +89,7 @@ public class CourseViewControl {
     private Button deleteButton; // Value injected by FXMLLoader
     
     EntityManager manager;
-    private Course cInfo;
+    private Course cInfo = new Course();
     private int studentID;
     private String cGrade;
     private long eID;
@@ -109,39 +109,26 @@ public class CourseViewControl {
         if (result.get() == ButtonType.OK) {
             if(canDelete()){
                 delete();
-                updateButton.setDisable(true);
-                isDeleted = true;
-                deleteNumField.setText("");
-                deleteNameField.setText("");
-                deleteProfField.setText("");
-                deleteCreditField.setText("");  
                 alert.setHeaderText("Deletion Complete");
-                alert.setContentText("Please hit the Back button to return to the Semester view, or close the window to exit the Semester view.");
+                alert.setContentText("Window will now return to former view.");
                 alert.showAndWait();
+                closeAction(event);
             } else {
                 alert.setHeaderText("Deletion Failed");
-                alert.setContentText("This course cannot be deleted at this time. Please hit the Back button to return to the Semester view, or close the window to exit the Semester view.");
+                alert.setContentText("This course cannot be deleted at this time. Please hit the Back button to return to the previous view, or close the window return to Printout menu.");
                 alert.showAndWait();
             }
         }
         
-        deleteButton.setDisable(true);
         
     }
 
     @FXML
     void tabDeleteChanged(Event event) {
-        detailNumField.setText(cInfo.getCourseID());
-        detailNameField.setText(cInfo.getCourseName());
-        detailProfField.setText(cInfo.getProfessor());
-        detailCreditField.setText(Integer.toString(cInfo.getCredit()));
-        
-        if(isDeleted){
-            deleteNumField.setText("");
-            deleteNameField.setText("");
-            deleteProfField.setText("");
-            deleteCreditField.setText("");
-        }
+        deleteNumField.setText(cInfo.getCourseID());
+        deleteNameField.setText(cInfo.getCourseName());
+        deleteProfField.setText(cInfo.getProfessor());
+        deleteCreditField.setText(Integer.toString(cInfo.getCredit()));
     }
 
     @FXML
@@ -151,29 +138,14 @@ public class CourseViewControl {
         detailProfField.setText(cInfo.getProfessor());
         detailCreditField.setText(Integer.toString(cInfo.getCredit()));
         gradeField.setText(cGrade);
-        
-        if(isDeleted){
-            detailNumField.setText("");
-            detailNameField.setText("");
-            detailProfField.setText("");
-            detailCreditField.setText("");
-            gradeField.setText("");
-        }
     }
 
     @FXML
     void tabUpdateChanged(Event event) {
         updateNumField.setText(cInfo.getCourseID());
-        updateNameField.setText("");
-        updateProfField.setText("");
-        updateCreditField.setText("");
-        
-        if(isDeleted){
-            updateNumField.setText("");
-            updateNameField.setText("");
-            updateProfField.setText("");
-            updateCreditField.setText("");
-        }
+        updateNameField.setText(cInfo.getCourseName());
+        updateProfField.setText(cInfo.getProfessor());
+        updateCreditField.setText(Integer.toString(cInfo.getCredit()));
     }
 
     @FXML
@@ -186,16 +158,23 @@ public class CourseViewControl {
             nCourse.setCredit(Integer.parseInt(updateCreditField.getText()));
 
             update(nCourse);
+            closeAction(event);
         } catch (NumberFormatException | NullPointerException ex){
             System.out.println(ex.getMessage());
         }
     }
     
+    @FXML
     void showBackAction(ActionEvent event) {
         Stage stage = (Stage)backButton.getScene().getWindow();
         if (previousScene != null){
             stage.setScene(previousScene);
         }
+    }
+    
+    void closeAction(ActionEvent event) {
+        Stage stage = (Stage)backButton.getScene().getWindow();
+        stage.close();
     }
 
     public void setPreviousScene(Scene scene) {
@@ -278,7 +257,6 @@ public class CourseViewControl {
         
         manager = (EntityManager) Persistence.createEntityManagerFactory("IST311ProjectD3").createEntityManager();
         
-        backButton.setDisable(true);
         studentID = stuID;
         //loading data
         loadData(cID);

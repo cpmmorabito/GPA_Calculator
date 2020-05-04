@@ -38,6 +38,9 @@ public class GPAViewControl {
     
     void displayOverallGPA() {
         gpa.calcOverallGPA(studentID);
+        if(Double.isNaN(gpa.getOverallGPA())){
+            gpa.setOverallGPA(0.0);
+        }
         overallGPAField.setText(String.format("%.2f", gpa.getOverallGPA()));
     }
     
@@ -45,7 +48,9 @@ public class GPAViewControl {
     void displaySemesterGPAAction(ActionEvent event) {
         int semester = semesterChoiceBox.getSelectionModel().getSelectedItem();
         gpa.calcSemesterGPA(semester, studentID);        
-        
+        if(Double.isNaN(gpa.getSemesterGPA())){
+            gpa.setSemesterGPA(0.0);
+        }
         semesterGPAField.setText(String.format("%.2f", gpa.getSemesterGPA()));
     }
 
@@ -55,9 +60,7 @@ public class GPAViewControl {
         assert semesterChoiceBox != null : "fx:id=\"semesterChoiceBox\" was not injected: check your FXML file 'GPAView.fxml'.";
         assert semesterGPAField != null : "fx:id=\"semesterGPAField\" was not injected: check your FXML file 'GPAView.fxml'.";
         assert semesterButton != null : "fx:id=\"semesterButton\" was not injected: check your FXML file 'GPAView.fxml'.";
-        System.out.println(stuID);
         studentID = stuID;
-        System.out.println(studentID);
         semesterChoiceBox.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
         displayOverallGPA();
     }
